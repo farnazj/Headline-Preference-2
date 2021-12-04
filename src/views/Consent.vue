@@ -88,8 +88,7 @@ export default {
     }
   },
   computed: {
-        ...mapGetters(['currentHeadline'])
-
+    ...mapGetters(['currentHeadline'])
   },
   created() {
     // logging.sendTest('that one', 'because');
