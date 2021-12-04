@@ -10,7 +10,7 @@ let store = new Vuex.Store({
   state: {
     identifier: null,
     displayedHeadlines: JSON.parse(localStorage.getItem('displayedHeadlines')) || [],
-    currentHeadlineIndex: localStorage.getItem('currentHeadlineIndex') || null,
+    currentHeadlineIndex: parseInt(localStorage.getItem('currentHeadlineIndex')) || null,
     user: JSON.parse(localStorage.getItem('userToken')) || ''
   },
   getters: {
@@ -60,7 +60,7 @@ let store = new Vuex.Store({
     loadNextHeadline: (context) => {
       return new Promise((resolve, reject) => {
         context.commit('advance_headline');
-        console.log('current headline index after change', state.currentHeadlineIndex)
+        console.log('current headline index after change', context.state.currentHeadlineIndex)
         resolve();
       })
       
