@@ -70,8 +70,11 @@ export default {
   methods: {
    loadNext: function() {
     // logging.sendTest('that one', 'because');
-        if (this.currentHeadlineIndex == constants.HEADLINE_PER_USER - 1)
+        if (this.currentHeadlineIndex == constants.HEADLINE_PER_USER - 1) {
+            this.cleanUpStorage();
             this.$router.push({ name: 'demographics' });
+        }
+            
         else {
             this.loadNextHeadline();
         }
@@ -81,7 +84,7 @@ export default {
        this.linkedClicked = true;
        console.log('link was clicked')
    },
-   ...mapActions(['loadNextHeadline'])
+   ...mapActions(['loadNextHeadline', 'cleanUpStorage'])
   }
 }
 </script>

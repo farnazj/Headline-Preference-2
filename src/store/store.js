@@ -9,8 +9,8 @@ Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {
     identifier: null,
-    displayedHeadlines: [],
-    currentHeadlineIndex: null,
+    displayedHeadlines: JSON.parse(localStorage.getItem('displayedHeadlines')) || [],
+    currentHeadlineIndex: localStorage.getItem('currentHeadlineIndex') || null,
     user: JSON.parse(localStorage.getItem('userToken')) || ''
   },
   getters: {
@@ -23,6 +23,8 @@ let store = new Vuex.Store({
       }
     },
     currentHeadline: (state) => {
+      console.log('displayed headlines',state.displayedHeadlines )
+      console.log('current index', state.currentHeadlineIndex)
       return state.displayedHeadlines[state.currentHeadlineIndex];
     }
   },
@@ -32,9 +34,16 @@ let store = new Vuex.Store({
       state.user = Object.assign({}, data.user);
       state.displayedHeadlines = data.displayedHeadlines;
       state.currentHeadlineIndex = 0;
+      localStorage.setItem('displayedHeadlines', JSON.stringify(state.displayedHeadlines));
+      localStorage.setItem('currentHeadlineIndex', state.currentHeadlineIndex);
     },
     advance_headline: (state) => {
       state.currentHeadlineIndex += 1;
+      localStorage.setItem('currentHeadlineIndex', state.currentHeadlineIndex);
+    },
+    remove_tokens: (state) => {
+      localStorage.removeItem('displayedHeadlines');
+      localStorage.removeItem('currentHeadlineIndex');
     }
   },
   actions: {
@@ -55,6 +64,12 @@ let store = new Vuex.Store({
         resolve();
       })
       
+    },
+    cleanUpStorage: (context) => {
+      return new Promise((resolve, reject) => {
+        context.commit('remove_tokens');
+        resolve();
+      })
     }
   }
 })
