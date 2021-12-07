@@ -1,5 +1,5 @@
 
-const HEADLINE_PER_USER = 2;
+const HEADLINE_PER_USER = 10;
 
 export default {
     HEADLINE_PER_USER

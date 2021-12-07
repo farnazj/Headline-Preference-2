@@ -8,7 +8,7 @@
     </v-row>
 
     <v-row no-gutters>
-        <p class="mb-0"> Which of the following headlines makes you more inclined to click on the article?</p>
+        <p class="mb-0 question-label"> Which of the following headlines makes you more inclined to click on the article?</p>
 
         <v-radio-group v-model="clickPreference"> 
             <v-radio
@@ -27,7 +27,7 @@
 
     <v-row no-gutters class="mt-7">
            
-        <p class="mb-0"> Which of the two headlines would you prefer to see on the article?</p>
+        <p class="mb-0 question-label"> Which of the two headlines would you prefer to see on the article?</p>
         <v-radio-group v-model="seePreference">
             <v-radio
                 v-for="(headline, index) in headlineChoices"
@@ -118,3 +118,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.question-label {
+    width: 100%;
+}
+</style>
