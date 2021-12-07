@@ -17,7 +17,7 @@
 <p><span class="font-weight-black">
 INVITATION TO PARTICIPATE:</span> You are invited to participate in this study if you&nbsp;at least occasionally read news online.</p>
 
-<p>To be eligible to participate, you must be 18 years of age or older, be a US citizen or permanent resident, at least occasionally read news online, and use Google Chrome as your browser.</p>
+<p>To be eligible to participate, you must be 18 years of age or older, be a US citizen or permanent resident, and at least occasionally read news online.</p>
 
 <p><span class="font-weight-black">PURPOSE OF THE STUDY:</span> This study is designed to evaluate what news headlines news consumers prefer.</p>
 <br>
@@ -25,7 +25,7 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 
 <p><span class="font-weight-black">PROCEDURES:</span> Should you agree to participate, you will be invited to answer questions about a set of news headlines and various demographics questions. The expected maximum time to complete the study is 10 minutes. After completing the study, you will be provided with a compensation of $1.00 as a thank-you for your time.</p>
 
-<p><span class="font-weight-black">POTENTIAL RISKS AND DISCOMFORTS:</span> Risks surrounding this study are minimal. The researchers will not share any “personal” information that he/she encounters during the surveys, and all notes surrounding your data will be coded by participant number rather than name or research platform identifier.</p>
+<p><span class="font-weight-black">POTENTIAL RISKS AND DISCOMFORTS:</span> Risks surrounding this study are minimal. The researchers will not share any “personal” information that they encounter during the surveys, and all notes surrounding your data will be coded by participant number rather than name or research platform identifier.</p>
 
 <p><span class="font-weight-black">POTENTIAL BENEFITS:</span> The will be no direct benefit to the subject for participating in this research. Participants may also benefit indirectly from knowing that they have advanced our understanding of what kind of headlines people like better for various articles.</p>
 
