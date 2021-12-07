@@ -49,9 +49,9 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 <p><span class="font-weight-black">RIGHTS OF RESEARCH SUBJECTS: </span>You are not waiving any legal claims, rights or remedies because of your participation in this research study. If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Chairman of the Committee on the Use of Humans as Experimental Subjects, M.I.T., Room E25-143B, 77 Massachusetts Ave, Cambridge, MA 02139, phone 1-617-253 6787.</p>
 
 
-<p style="font-weight: bolder;">Continuing with the survey implies informed consent</p>
+<p style="font-weight: bolder;" class="full-block">Continuing with the survey implies informed consent</p>
 
-<p>Please do not use the browser's back key when you are completing the study.</p>
+<p class="full-block">Please do not use the browser's back key when you are completing the study.</p>
 
 </v-row>
 
