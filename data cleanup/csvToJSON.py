@@ -23,20 +23,19 @@ def readCSV(filename):
                 
             q_index[stripped_val] = index
 
-        print(q_index)
-
         for index, row in enumerate(reader):
-            if row[q_index['version']] == '1':
-                dataset.append({
-                    'index': index,
-                    'titleId': row[q_index['titleId']],
-                    'suggested': row[q_index['suggested']],
-                    'sourceId': row[q_index['SourceId']],
-                    'standaloneTitleId': row[q_index['StandaloneTitleId']],
-                    'original': row[q_index['original']],
-                    'postId': row[q_index['PostId']],
-                    'url': row[q_index['url']]
-                })
+            if row[q_index['titleId']] not in ['184', '187', '806', '841']:
+                if row[q_index['version']] == '1':
+                    dataset.append({
+                        'index': index,
+                        'titleId': row[q_index['titleId']],
+                        'suggested': row[q_index['suggested']],
+                        'sourceId': row[q_index['SourceId']],
+                        'standaloneTitleId': row[q_index['StandaloneTitleId']],
+                        'original': row[q_index['original']],
+                        'postId': row[q_index['PostId']],
+                        'url': row[q_index['url']]
+                    })
     
     return dataset
 
@@ -46,4 +45,4 @@ def writeAsJson(filename, dataset):
         json.dump(dataset, codecs.getwriter('utf-8')(f), ensure_ascii=False)
 
 dataset = readCSV('customTitlesAggregate.csv')
-writeAsJson('test.json', dataset)
+writeAsJson('output.json', dataset)
