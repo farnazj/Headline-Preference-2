@@ -48,21 +48,25 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 
 <p><span class="font-weight-black">RIGHTS OF RESEARCH SUBJECTS: </span>You are not waiving any legal claims, rights or remedies because of your participation in this research study. If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Chairman of the Committee on the Use of Humans as Experimental Subjects, M.I.T., Room E25-143B, 77 Massachusetts Ave, Cambridge, MA 02139, phone 1-617-253 6787.</p>
 
-<p>&nbsp;</p>
 
-<p><span style="font-weight: bolder;">Continuing with the survey implies informed consent.</span></p>
+<p style="font-weight: bolder;">Continuing with the survey implies informed consent</p>
 
-    </v-row>
+<p>Please do not use the browser's back key when you are completing the study.</p>
 
+</v-row>
+
+  <v-form ref="signupForm"> 
     <v-row no-gutters>
       <v-col cols=6 sm=12 md=8>
-        <v-text-field label="What is your Sona email?"></v-text-field>
+        <v-text-field label="What is your Sona email?" :rules="formRules.emailRules" v-model="email"
+        ></v-text-field>
       </v-col>
     </v-row>
 
     <v-row no-gutters>
       <v-col cols=6 sm=12 md=8>
-        <v-text-field label="What is your Sona ID?"></v-text-field>
+        <v-text-field label="What is your Sona ID?" v-model="participantId" :rules="formRules.idRules"
+        ></v-text-field>
         </v-col>
       <p class="caption">Your Sona ID is a numerical identifier. If you do not remember your Sona ID, please email the lab manager at lab-manager@mit.edu</p>
 
@@ -71,6 +75,7 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
     <v-row no-gutters class="mt-3">
       <v-btn color="primary" @click="setupProfile"> Consent and Proceed</v-btn>
     </v-row>
+  </v-form>
   </v-container>
 </template>
 
@@ -84,21 +89,33 @@ export default {
   data () {
     return {
       email: '',
-      participantId: ''
+      participantId: '',
+      formRules: {
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+/.test(v) || 'E-mail must be valid'
+        ],
+        idRules: [
+          v => !!v || 'ID is required',
+          v => /^[0-9]+$/u.test(v)
+            || 'ID must be valid'
+        ],
+      }
     }
   },
   computed: {
     ...mapGetters(['currentHeadline'])
   },
-  created() {
-    // logging.sendTest('that one', 'because');
-  },
   methods: {
     setupProfile: function() {
-      this.setup({ email: this.email, participantId: this.participantId })
-      .then(() => {
-        this.$router.push({ name: 'headlines' });
-      })
+
+      if (this.$refs.signupForm.validate()) {
+        this.setup({ email: this.email, participantId: this.participantId })
+        .then(() => {
+          this.$router.push({ name: 'headlines' });
+        })
+      }
+
     },
     ...mapActions(['setup'])
   }

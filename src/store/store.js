@@ -10,7 +10,7 @@ let store = new Vuex.Store({
   state: {
     identifier: null,
     displayedHeadlines: JSON.parse(localStorage.getItem('displayedHeadlines')) || [],
-    currentHeadlineIndex: parseInt(localStorage.getItem('currentHeadlineIndex')) || null,
+    currentHeadlineIndex: parseInt(localStorage.getItem('currentHeadlineIndex')),
     user: JSON.parse(localStorage.getItem('userToken')) || ''
   },
   getters: {
@@ -23,8 +23,6 @@ let store = new Vuex.Store({
       }
     },
     currentHeadline: (state) => {
-      console.log('displayed headlines',state.displayedHeadlines )
-      console.log('current index', state.currentHeadlineIndex)
       return state.displayedHeadlines[state.currentHeadlineIndex];
     }
   },
@@ -52,7 +50,6 @@ let store = new Vuex.Store({
 
         let displayedHeadlines = utils.getRandomSubarray(headlines, constants.HEADLINE_PER_USER);
         context.commit('setup_user', { user: user, displayedHeadlines: displayedHeadlines });
-        console.log('what are chosen headlines', context.state.displayedHeadlines)
         resolve();
       });
 
@@ -60,7 +57,6 @@ let store = new Vuex.Store({
     loadNextHeadline: (context) => {
       return new Promise((resolve, reject) => {
         context.commit('advance_headline');
-        console.log('current headline index after change', context.state.currentHeadlineIndex)
         resolve();
       })
       
