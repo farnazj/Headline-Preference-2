@@ -1,51 +1,53 @@
 <template>
 <v-container class="pa-3 pt-7">
     <v-row no-gutters>
+        <span class="h4 question-label mb-3 font-weight-medium">Headline {{currentHeadlineIndex + 1}} of 10</span>
         <p>Consider the following article:
             <a :href="currentHeadline.url" @click="setLinkAsClicked" target="_blank">
                 {{currentHeadline.url}}</a>
         </p>
     </v-row>
 
-    <v-row no-gutters>
-        <p class="mb-0 question-label"> Which of the following headlines makes you more inclined to click on the article?</p>
+    <v-form ref="headlineChoiceForm"> 
+        <v-row no-gutters>
+            <p class="mb-0 question-label"> Which of the following headlines makes you more inclined to click on the article?</p>
 
-        <v-radio-group v-model="clickPreference"> 
-            <v-radio
-                v-for="(headline, index) in headlineChoices"
-                :key="index"
-                :label="headline.text"
-                :value="index"
-            ></v-radio>
-        </v-radio-group>
-    </v-row>
-    <v-row no-gutters>
-         <v-textarea model="clickExplanation" dense rows=2 auto-grow
-          label="Why?"
-        ></v-textarea>     
-    </v-row>
+            <v-radio-group v-model="clickPreference" :rules="formRules.headlineRadio" dense class="mt-2"> 
+                <v-radio
+                    v-for="(headline, index) in headlineChoices"
+                    :key="index"
+                    :label="headline.text"
+                    :value="index"
+                ></v-radio>
+            </v-radio-group>
+        </v-row>
+        <v-row no-gutters class="mt-2">
+            <v-textarea v-model="clickExplanation" dense rows=2 auto-grow
+            label="Why?" :rules="formRules.explanationText"
+            ></v-textarea>     
+        </v-row>
+
+        <v-row no-gutters class="mt-7">
+            <p class="mb-0 question-label"> Which of the two headlines would you prefer to see for the article? (For example, if this article appeared in your social media feed)</p>
+            <v-radio-group v-model="seePreference" :rules="formRules.headlineRadio" dense class="mt-2">
+                <v-radio
+                    v-for="(headline, index) in headlineChoices"
+                    :key="index"
+                    :label="headline.text"
+                    :value="index"
+                ></v-radio>
+            </v-radio-group>
+        </v-row>
+
+        <v-row no-gutters class="mt-2">
+            <v-textarea v-model="preferExplanation" dense rows=2 auto-grow
+            label="Why?" :rules="formRules.explanationText"
+            ></v-textarea>        
+        </v-row>
+
+    </v-form>
 
     <v-row no-gutters class="mt-7">
-           
-        <p class="mb-0 question-label"> Which of the two headlines would you prefer to see on the article?</p>
-        <v-radio-group v-model="seePreference">
-            <v-radio
-                v-for="(headline, index) in headlineChoices"
-                :key="index"
-                :label="headline.text"
-                :value="index"
-            ></v-radio>
-        </v-radio-group>
-    </v-row>
-    <v-row no-gutters>
-        <v-textarea model="preferExplanation" dense rows=2 auto-grow
-          label="Why?"
-        ></v-textarea>        
-    </v-row>
-
-
-
-    <v-row no-gutters class="mt-5">
         <v-btn color="primary" @click="loadNext"> Next</v-btn>
     </v-row>
 </v-container>
@@ -63,11 +65,19 @@ export default {
   },
   data () {
     return {
-        seePreference: null,
         clickPreference: null,
-        preferExplanation: '',
         clickExplanation: '',
-        linkedClicked: false
+        seePreference: null,
+        preferExplanation: '',
+        linkedClicked: false,
+        formRules: {
+            headlineRadio: [
+                v => v != null || 'Please choose one of the options'
+            ],
+            explanationText: [
+                v => !!v || 'Please explain why'
+            ]
+        },
     }
   },
   computed: {
@@ -81,38 +91,51 @@ export default {
             value: 'original'
         }];
 
-        console.log('before shuffle', choices)
         utils.shuffleArray(choices);
-        console.log('after shuffle', choices)
+        choices.push({
+            text: 'Neither',
+            value: 'neither'
+        })
 
         return choices;
     },
-    ...mapGetters(['currentHeadline']),
+    ...mapGetters(['currentHeadline', 'user']),
     ...mapState(['currentHeadlineIndex'])
-  },
-  created() {
   },
   methods: {
    loadNext: function() {
-    // logging.sendTest('that one', 'because');
-        if (this.currentHeadlineIndex == constants.HEADLINE_PER_USER - 1) {
-            this.cleanUpStorage();
-            this.$router.push({ name: 'demographics' });
+
+        if (this.$refs.headlineChoiceForm.validate()) {
+
+            logging.sendResponse(
+                this.currentHeadline.index,
+                this.currentHeadline.titleId,
+                this.headlineChoices[this.clickPreference].text,
+                this.headlineChoices[this.clickPreference].value,
+                this.clickExplanation,
+                this.headlineChoices[this.seePreference].text,
+                this.headlineChoices[this.seePreference].value,
+                this.preferExplanation,
+                this.linkedClicked,
+                this.user.participantId,
+                this.user.email);
+
+            if (this.currentHeadlineIndex == constants.HEADLINE_PER_USER - 1) {
+                this.cleanUpStorage();
+                this.$router.push({ name: 'demographics' });
+            }
+            else {
+                this.loadNextHeadline()
+                .then(() => {
+                    this.$refs.headlineChoiceForm.reset();
+                    this.linkedClicked = false;
+                })
+            }
         }
-        else {
-            this.loadNextHeadline()
-            .then(() => {
-                this.seePreference = null;
-                this.clickPreference = null;
-                this.preferExplanation = '';
-                this.clickExplanation = '';
-                this.linkedClicked = false;
-            })
-        }
+   
    },
    setLinkAsClicked: function() {
        this.linkedClicked = true;
-       console.log('link was clicked')
    },
    ...mapActions(['loadNextHeadline', 'cleanUpStorage'])
   }
