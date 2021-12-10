@@ -38,7 +38,7 @@ def readCSV(filename):
                         'url': row[q_index['url']]
                     })
     
-    sample = np.random.choice(dataset, 15).tolist()
+    sample = np.random.choice(dataset, 20).tolist()
     return sample
 
 
