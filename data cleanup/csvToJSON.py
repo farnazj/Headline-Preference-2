@@ -1,5 +1,6 @@
 import csv
 import json, codecs
+import numpy as np
 
 def readCSV(filename):
 
@@ -37,7 +38,8 @@ def readCSV(filename):
                         'url': row[q_index['url']]
                     })
     
-    return dataset
+    sample = np.random.choice(dataset, 15).tolist()
+    return sample
 
 
 def writeAsJson(filename, dataset):

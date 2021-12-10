@@ -2,14 +2,14 @@
 <v-container class="pa-3 pt-7">
     <v-row no-gutters>
         <span class="h4 question-label mb-3 font-weight-medium">Headline {{currentHeadlineIndex + 1}} of 10</span>
-        <p>Consider the following article:
+        <p>Please take a look at the following article:
             <a :href="currentHeadline.url" @click="setLinkAsClicked" target="_blank">
                 {{currentHeadline.url}}</a>
         </p>
     </v-row>
 
     <v-form ref="headlineChoiceForm"> 
-        <v-row no-gutters>
+        <!-- <v-row no-gutters>
             <p class="mb-0 question-label"> Which of the following headlines makes you more inclined to click on the article?</p>
 
             <v-radio-group v-model="clickPreference" :rules="formRules.headlineRadio" dense class="mt-2"> 
@@ -25,11 +25,25 @@
             <v-textarea v-model="clickExplanation" dense rows=2 auto-grow
             label="Why?" :rules="formRules.explanationText"
             ></v-textarea>     
+        </v-row> -->
+
+        <v-row no-gutters>
+            <p class="mb-0 question-label">
+                Is this an article that you would have wanted to read at the time when it was published?
+            </p>
+            <v-radio-group v-model="readInterest" :rules="formRules.mandatoryRadio" dense class="mt-2"> 
+                <v-radio
+                    v-for="(interest, index) in ['Yes', 'No']"
+                    :key="index"
+                    :label="interest"
+                    :value="interest"
+                ></v-radio>
+            </v-radio-group>
         </v-row>
 
         <v-row no-gutters class="mt-7">
-            <p class="mb-0 question-label"> Which of the two headlines would you prefer to see for the article? (For example, if this article appeared in your social media feed)</p>
-            <v-radio-group v-model="seePreference" :rules="formRules.headlineRadio" dense class="mt-2">
+            <p class="mb-0 question-label"> Which of the two headlines would you have preferred to see for the article? (For example, if this article appeared in your social media feed)</p>
+            <v-radio-group v-model="seePreference" :rules="formRules.mandatoryRadio" dense class="mt-2">
                 <v-radio
                     v-for="(headline, index) in headlineChoices"
                     :key="index"
@@ -48,7 +62,7 @@
     </v-form>
 
     <v-row no-gutters class="mt-7">
-        <v-btn color="primary" @click="loadNext"> Next</v-btn>
+        <v-btn color="primary" @click="loadNext" :disabled="nextBtnDisabled"> Next</v-btn>
     </v-row>
 </v-container>
 </template>
@@ -65,19 +79,19 @@ export default {
   },
   data () {
     return {
-        clickPreference: null,
-        clickExplanation: '',
+        readInterest: null,
         seePreference: null,
         preferExplanation: '',
         linkedClicked: false,
         formRules: {
-            headlineRadio: [
+            mandatoryRadio: [
                 v => v != null || 'Please choose one of the options'
             ],
             explanationText: [
                 v => !!v || 'Please explain why'
             ]
         },
+        nextBtnDisabled: false
     }
   },
   computed: {
@@ -106,13 +120,12 @@ export default {
    loadNext: function() {
 
         if (this.$refs.headlineChoiceForm.validate()) {
+            this.nextBtnDisabled = true;
 
             logging.sendResponse(
                 this.currentHeadline.index,
                 this.currentHeadline.titleId,
-                this.headlineChoices[this.clickPreference].text,
-                this.headlineChoices[this.clickPreference].value,
-                this.clickExplanation,
+                this.readInterest,
                 this.headlineChoices[this.seePreference].text,
                 this.headlineChoices[this.seePreference].value,
                 this.preferExplanation,
@@ -129,6 +142,7 @@ export default {
                 .then(() => {
                     this.$refs.headlineChoiceForm.reset();
                     this.linkedClicked = false;
+                    this.nextBtnDisabled = false;
                 })
             }
         }

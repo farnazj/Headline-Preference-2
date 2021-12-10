@@ -85,31 +85,27 @@ function findFirstString(str, choices) {
   // submits to the google form at this URL:
   // https://forms.gle/rNrAeZrTLHWU1ru59
   function sendResponse(
-        suggestedHeadlineIndex,
-        customTitleId,
-        whichOfTheFollowingHeadlinesMakesYouMoreInclinedToClickOnTheArticleText,
-        headlineChoiceForClickOriginalOrAlt,
-        whyClickPreference,
-        whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
-        headlineChoiceForSeeingOriginalOrAlt,
-        whyReadPreference,
-        linkedClicked,
-        sonaId,
-        sonaEmail) {
-    var formid = "e/1FAIpQLSclGRE-K7EX8-6nxEB6iEPJCyEwd9Tf0KDtIxI7YzARj7ZT1Q";
-    var data = {
-        "entry.327417926": suggestedHeadlineIndex,
-        "entry.569297778": customTitleId,
-        "entry.500796277": whichOfTheFollowingHeadlinesMakesYouMoreInclinedToClickOnTheArticleText,
-        "entry.95143262": headlineChoiceForClickOriginalOrAlt,
-        "entry.711912188": whyClickPreference,
-        "entry.1489252714": whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
-        "entry.1640319863": headlineChoiceForSeeingOriginalOrAlt,
-        "entry.825371173": whyReadPreference,
-        "entry.528381619": linkedClicked,
-        "entry.1232894431": sonaId,
-        "entry.621492409": sonaEmail
-    };
+    suggestedHeadlineIndexInSequence,
+    customTitleId,
+    readInterestYesOrNo,
+    whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
+    headlineChoiceForSeeingOriginalOrAlt,
+    whyReadPreference,
+    linkedClicked,
+    sonaId,
+    sonaEmail) {
+  var formid = "e/1FAIpQLSclGRE-K7EX8-6nxEB6iEPJCyEwd9Tf0KDtIxI7YzARj7ZT1Q";
+  var data = {
+    "entry.327417926": suggestedHeadlineIndexInSequence,
+    "entry.569297778": customTitleId,
+    "entry.711912188": readInterestYesOrNo,
+    "entry.1489252714": whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
+    "entry.1640319863": headlineChoiceForSeeingOriginalOrAlt,
+    "entry.825371173": whyReadPreference,
+    "entry.528381619": linkedClicked,
+    "entry.1232894431": sonaId,
+    "entry.621492409": sonaEmail
+  };
       var params = [];
       for (const key in data) {
         params.push(key + "=" + encodeURIComponent(data[key]));
