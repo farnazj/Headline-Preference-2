@@ -65,10 +65,10 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 
     <v-row no-gutters>
       <v-col cols=6 sm=12 md=8>
-        <v-text-field label="What is your Sona ID?" v-model="participantId" :rules="formRules.idRules"
+        <v-text-field label="What is your Sona identity code?" v-model="participantId" :rules="formRules.idRules"
         ></v-text-field>
         </v-col>
-      <p class="caption">Your Sona ID is a numerical identifier. If you do not remember your Sona ID, please email the lab manager at lab-manager@mit.edu</p>
+      <p class="caption">Your Sona identity code is a numerical identifier. If you do not remember your Sona ID, please email the lab manager at lab-manager@mit.edu</p>
 
     </v-row>
 

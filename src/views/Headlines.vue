@@ -55,7 +55,7 @@
 
         <v-row no-gutters class="mt-2">
             <v-textarea v-model="preferExplanation" dense rows=2 auto-grow
-            label="Why?" :rules="formRules.explanationText"
+            label="Why do you prefer the headline you have selected?" :rules="formRules.explanationText"
             ></v-textarea>        
         </v-row>
 
