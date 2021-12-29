@@ -30,7 +30,7 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 <p><span class="font-weight-black">POTENTIAL BENEFITS:</span> The will be no direct benefit to the subject for participating in this research. Participants may also benefit indirectly from knowing that they have advanced our understanding of what kind of headlines people like better for various articles.</p>
 
 
-<p><span class="font-weight-black">PAYMENT FOR PARTICIPATION: </span> <span style="color:#2980b9;">The subjects will receive payment in the amount of $1 dollar in the form of a gift card upon completion of the study.</span></p>
+<p><span class="font-weight-black">PAYMENT FOR PARTICIPATION: </span> <span style="color:#2980b9;">The subjects will receive payment in the amount of $1 dollar upon completion of the study.</span></p>
 
 
 <p><span class="font-weight-black">PRIVACY AND CONFIDENTIALITY: </span> No information about you, or provided by you during the research will be disclosed to others without your written permission, except: if necessary to protect your rights or welfare, or if required by law. In addition, your information may be reviewed by authorized MIT representatives to ensure compliance with MIT policies and procedures.</p>
@@ -58,18 +58,9 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
   <v-form ref="signupForm"> 
     <v-row no-gutters>
       <v-col cols=6 sm=12 md=8>
-        <v-text-field label="What is your Sona email?" :rules="formRules.emailRules" v-model="email"
+        <v-text-field label="What is your Worker ID?" :rules="formRules.workerIdRules" v-model="workerId"
         ></v-text-field>
       </v-col>
-    </v-row>
-
-    <v-row no-gutters>
-      <v-col cols=6 sm=12 md=8>
-        <v-text-field label="What is your Sona identity code?" v-model="participantId" :rules="formRules.idRules"
-        ></v-text-field>
-        </v-col>
-      <p class="caption">Your Sona identity code is a numerical identifier. If you do not remember your Sona ID, please email the lab manager at lab-manager@mit.edu</p>
-
     </v-row>
 
     <v-row no-gutters class="mt-3">
@@ -80,7 +71,6 @@ INVITATION TO PARTICIPATE:</span> You are invited to participate in this study i
 </template>
 
 <script>
-import logging from '@/lib/logging'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -88,18 +78,11 @@ export default {
   },
   data () {
     return {
-      email: '',
-      participantId: '',
+      workerId: '',
       formRules: {
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid'
-        ],
-        idRules: [
-          v => !!v || 'ID is required',
-          v => /^[0-9]+$/u.test(v)
-            || 'ID must be valid'
-        ],
+        workerIdRules: [
+          v => !!v || 'Worker ID is required'
+        ]
       }
     }
   },
@@ -110,7 +93,7 @@ export default {
     setupProfile: function() {
 
       if (this.$refs.signupForm.validate()) {
-        this.setup({ email: this.email, participantId: this.participantId })
+        this.setup({  workerId: this.workerId })
         .then(() => {
           this.$router.push({ name: 'headlines' });
         })

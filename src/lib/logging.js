@@ -70,7 +70,7 @@ function findFirstString(str, choices) {
   //    so that your version is called to log events to your form.
   //
   // For example, the following code was written as follows:
-  // curl -sL goo.gl/jUkahv | python - https://docs.google.com/forms/d/1A...0/edit
+  // curl -sL goo.gl/jUkahv | python2 - https://docs.google.com/forms/d/1A...0/edit
   //
   // This preocess changes the ids below to direct your data into your own
   // form and spreadsheet. The formid must be customized, and also the form
@@ -80,31 +80,29 @@ function findFirstString(str, choices) {
   // error-prone process, it can be easier to use googlesender.py.
   //
   /////////////////////////////////////////////////////////////////////////////
-  
-  // Network Log submission function
-  // submits to the google form at this URL:
-  // https://forms.gle/rNrAeZrTLHWU1ru59
-  function sendResponse(
-    suggestedHeadlineIndexInSequence,
-    customTitleId,
-    readInterestYesOrNo,
-    whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
-    headlineChoiceForSeeingOriginalOrAlt,
-    whyReadPreference,
-    linkedClicked,
-    sonaId,
-    sonaEmail) {
-  var formid = "e/1FAIpQLSclGRE-K7EX8-6nxEB6iEPJCyEwd9Tf0KDtIxI7YzARj7ZT1Q";
+
+  // Headline Preference-External submission function
+// submits to the google form at this URL:
+// docs.google.com/forms/d/1ZFwgqPMviLdaZhyImNhJaPPILTkdeR2L2KaYf5EUwHI/edit
+function sendResponse(
+  suggestedHeadlineIndexInListOfSubmittedHeadlines,
+  customTitleId,
+  readInterestYesOrNo,
+  whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
+  headlineChoiceForSeeingOriginalOrAlt,
+  whyReadPreference,
+  linkedClicked,
+  workerId) {
+  var formid = "e/1FAIpQLScYxDKag_Fy2vx41hpSmHjSCF_vy4F5Fwl9IdafSBmefdaNHA";
   var data = {
-    "entry.327417926": suggestedHeadlineIndexInSequence,
+    "entry.327417926": suggestedHeadlineIndexInListOfSubmittedHeadlines,
     "entry.569297778": customTitleId,
     "entry.711912188": readInterestYesOrNo,
     "entry.1489252714": whichOfTheTwoHeadlinesWouldYouPreferToSeeForTheArticle,
     "entry.1640319863": headlineChoiceForSeeingOriginalOrAlt,
     "entry.825371173": whyReadPreference,
     "entry.528381619": linkedClicked,
-    "entry.1232894431": sonaId,
-    "entry.621492409": sonaEmail
+    "entry.1232894431": workerId
   };
       var params = [];
       for (const key in data) {

@@ -13,6 +13,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f https://github.com/farnazj/Headline-Preference.git master:gh-pages
+git push -f https://github.com/farnazj/Headline-Preference-External.git master:gh-pages
 
 cd -

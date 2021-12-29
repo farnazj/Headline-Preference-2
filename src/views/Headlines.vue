@@ -130,8 +130,7 @@ export default {
                 this.headlineChoices[this.seePreference].value,
                 this.preferExplanation,
                 this.linkedClicked,
-                this.user.participantId,
-                this.user.email);
+                this.user.workerId);
 
             if (this.currentHeadlineIndex == constants.HEADLINE_PER_USER - 1) {
                 this.cleanUpStorage();
