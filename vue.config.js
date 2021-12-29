@@ -3,6 +3,6 @@ module.exports = {
     'vuetify'
   ],
   publicPath: process.env.NODE_ENV === 'production'
-  ? '/Headline-Preference/'
+  ? '/Headline-Preference-External/'
   : '/'
 }
